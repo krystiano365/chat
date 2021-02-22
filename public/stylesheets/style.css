@@ -1,0 +1,49 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: black;
+  margin: 0;
+  padding: 0;
+}
+#main {
+  overflow: hidden;
+  white-space: nowrap;
+  height: 100%;
+  width: 100%;
+}
+#main > * {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+}
+#participants-list {
+  min-width: 250px;
+  width: 20%;
+  height: 100%;
+  background-color: white;
+}
+#chat {
+  width: 80%;
+  height: 100%;
+  background-color: white;
+}
+#message-form {
+  position: absolute;
+  bottom: 0;
+  height: 30px;
+  width: 100%;
+}
+#message-form input {
+  width: 90%;
+}
+#message-form button {
+  width: 10%;
+}
+#messages-box {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+.participant {
+  width: 100%;
+  color: #0ca70c;
+}
