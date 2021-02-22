@@ -4,6 +4,25 @@ body {
   margin: 0;
   padding: 0;
 }
+#lobby {
+  text-align: center;
+  background-color: white;
+  height: 100%;
+  width: 100%;
+}
+#lobby h1 {
+  padding-top: 100px;
+}
+#lobby #wrapper {
+  display: inline-block;
+  width: 400px;
+  padding: 50px 20px;
+  border: solid orange 2px;
+  border-radius: 20px;
+}
+#lobby #wrapper #label {
+  padding-bottom: 10px;
+}
 #main {
   overflow: hidden;
   white-space: nowrap;
@@ -21,6 +40,14 @@ body {
   height: 100%;
   background-color: white;
 }
+#participants-list h3 {
+  text-align: center;
+  margin: 0;
+  padding: 10px 0;
+  font-size: 30px;
+  border-bottom: solid 1px green;
+  font-weight: bold;
+}
 #chat {
   width: 80%;
   height: 100%;
@@ -29,8 +56,11 @@ body {
 #message-form {
   position: absolute;
   bottom: 0;
-  height: 30px;
   width: 100%;
+  margin: 0 5px;
+}
+#message-form * {
+  height: 50px;
 }
 #message-form input {
   width: 90%;
@@ -42,8 +72,46 @@ body {
   width: 100%;
   height: 100%;
   position: absolute;
+  overflow-y: scroll;
+}
+#messages-box .message-wrapper {
+  width: 100%;
+  display: block;
+  overflow: auto;
+}
+#messages-box .message {
+  position: relative;
+  display: block;
+  width: 40%;
+  margin: 10px;
+}
+#messages-box .message .msg-box {
+  border-radius: 20px;
+  background-color: bisque;
+  padding: 10px 20px;
+}
+#messages-box .message .info-box {
+  margin: 0 10px;
+}
+#messages-box .message .info-box * {
+  display: inline-block;
+}
+#messages-box .message .info-box .owner-label {
+  margin-right: 10px;
+}
+#messages-box .mine {
+  float: right;
+}
+#messages-box .mine .msg-box {
+  background-color: orange;
+}
+#messages-box .mine .info-box {
+  float: right;
 }
 .participant {
   width: 100%;
+  font-size: 20px;
+  padding: 5px 0 ;
   color: #0ca70c;
+  text-align: center;
 }

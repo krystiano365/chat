@@ -12,9 +12,17 @@ app.use(logger('dev'));
 const httpServer = app.listen(3000)
 const io = new Server(httpServer)
 
-
+class Message{
+	constructor(owner, message, timestamp) {
+		this.owner = owner;
+		this.time = timestamp;
+		this.message = message;
+	}
+}
 
 const activeClients = new Set()
+let messages = []
+
 io.on("connection", (client)=>{
 	console.log("new client connected")
 
@@ -23,20 +31,37 @@ io.on("connection", (client)=>{
 			uid += "_"
 		}
 		client.uid = uid
-		activeClients.add(client)
+		activeClients.add(uid)
 		io.emit("client_connected", [...activeClients])
-		console.log("client connected")
+		client.emit("initial_messages", messages)
+	})
+	// https://www.youtube.com/watch?v=dOSIqJWQkXM
+	// client.on("set_name", (uid) => {
+	// 	activeClients.delete(client.uid)
+	// 	client.uid = uid
+	// 	activeClients.add(uid)
+	// 	io.emit("set_name", [...activeClients])
+	// })
+	client.on("get_my_name", () => {
+		client.emit('get_my_name', client.uid)
 	})
 
-	client.on("set_name", (uid) => {
-		if(activeClients.has(uid)){
-			io.emit https://www.youtube.com/watch?v=dOSIqJWQkXM
+	client.on("message", (message) => {
+		if(message.length <= 0){
+			return
 		}
-		io.emit("set_name", client.uid)
+		var uid = client.uid
+		var newMsg = new Message(uid, message, Date.now())
+		messages.push(newMsg)
+		io.emit("message", newMsg)
 	})
 
 	client.on("disconnect", () => {
 		activeClients.delete(client.uid)
+		if (activeClients.size <= 0) {
+			messages = []
+			activeClients.clear()
+		}
 		io.emit("client_disconnected", client.uid)
 		console.log("client disconnected")
 	})

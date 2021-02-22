@@ -11,8 +11,11 @@
 <body>
 
 <div id="main">
-    <div id="participants-list">
 
+    <div id="participants-list">
+        <h3>
+            Active:
+        </h3>
     </div>
     <div id="chat">
         <div id="messages-box">
@@ -20,10 +23,20 @@
         </div>
         <div id="message-form">
             <input type="text" placeholder="Type something..."/>
-            <button type="submit">Send</button>
+            <button type="submit" disabled>Send</button>
         </div>
     </div>
 </div>
+
+<div id="lobby">
+    <h1>Chat</h1>
+    <div id="wrapper">
+        <div id="label">choose your nickname:</div>
+        <input type="text" placeholder="user name"/>
+        <button type="submit">Join chat</button>
+    </div>
+</div>
+
 <script src="javascripts/index.js"></script>
 
 </body>
