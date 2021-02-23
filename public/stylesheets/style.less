@@ -29,10 +29,11 @@ body {
 }
 
 #main {
+	display:flex;
 	overflow: hidden;
 	white-space: nowrap;
 	height: 100%;
-	width: 100%;
+	width:100%;
 }
 
 #main > * {
@@ -42,8 +43,7 @@ body {
 }
 
 #participants-list {
-	min-width: 250px;
-	width: 20%;
+	width: 200px;
 	height: 100%;
 	background-color: white;
 
@@ -58,81 +58,81 @@ body {
 }
 
 #chat {
-	width: 80%;
+	flex-grow: 1;
 	height: 100%;
 	background-color: white;
 
-}
-
-#message-form {
-	position: absolute;
-	bottom: 0;
-	width: 100%;
-	margin: 0 5px;
-	* {
-		height: 50px;
-	}
-	input {
-		width: 90%
-	}
-	button {
-		width: 10%;
-	}
-	span{
-		width:100%;
-		height: 30px;
-		color: red;
-	}
-}
-
-#messages-box {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	overflow-y: scroll;
-	.message-wrapper {
+	#message-form {
+		position: absolute;
+		bottom: 0;
 		width: 100%;
-		display: block;
-		overflow: auto;
+		margin: 0 5px;
+		* {
+			height: 50px;
+		}
+		input {
+			width: 90%
+		}
+		button {
+			width: 10%;
+		}
+		span{
+			width:100%;
+			height: 30px;
+			color: red;
+			display:block;
+		}
 	}
-	.message {
-		position: relative;
-		display: block;
-		width: 40%;
-		margin: 10px;
-		.msg-box {
-			border-radius: 20px;
-			background-color: bisque;
-			padding: 10px 20px;
+
+	#messages-box {
+		width:100%;
+		height: 100%;
+		position: absolute;
+		overflow-y: scroll;
+		.message-wrapper {
+			width: 100%;
+			display: block;
 			overflow: auto;
 		}
-		.info-box {
-			margin: 0 10px;
-			* {
-				display: inline-block;
+		.message {
+			position: relative;
+			display: block;
+			width: 40%;
+			margin: 10px;
+			.msg-box {
+				border-radius: 20px;
+				background-color: bisque;
+				padding: 10px 20px;
+				overflow: auto;
 			}
-			.owner-label {
-				margin-right: 10px;
-				font-weight: bold;
-			}
-			.time-label {
+			.info-box {
+				margin: 0 10px;
+				* {
+					display: inline-block;
+				}
+				.owner-label {
+					margin-right: 10px;
+					font-weight: bold;
+				}
+				.time-label {
 
+				}
 			}
 		}
-	}
 
-	.mine {
-		float: right;
-
-		.msg-box {
-			background-color: orange;
-		}
-
-		.info-box {
+		.mine {
 			float: right;
+			.msg-box {
+				background-color: orange;
+			}
+
+			.info-box {
+				float: right;
+			}
 		}
 	}
 }
+
 
 .participant {
 	width: 100%;

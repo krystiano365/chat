@@ -11,6 +11,7 @@ const $messageInput = $main.find("input")
 class LocalClient {
 
 	constructor() {
+		this.areTyping = []
 		this.myName = null;
 		this._setListeners()
 	}
@@ -55,7 +56,9 @@ class LocalClient {
 		})
 
 		socket.on("is_typing", (peopleWhoAreTyping) =>{ // todo wrap it in an array (?)
-			var x = peopleWhoAreTyping.findIndex(this.myName)
+			var x = peopleWhoAreTyping.findIndex((name)=>
+				this.myName === name
+			)
 			if(x > -1){
 				peopleWhoAreTyping.splice(x, 1)
 			}
@@ -68,9 +71,18 @@ class LocalClient {
 					str += " is typing..."
 				}
 				$("#is-typing").text(str)
+				for(var name of peopleWhoAreTyping){
+					var el = $("#" + name)[0]
+					el.style.backgroundColor = "cyan"
+					this.areTyping.push(el)
+				}
 			} else {
 				$("#is-typing").text('')
+				this.areTyping.forEach((el)=>{
+					el.style.backgroundColor = "transparent"
+				})
 			}
+
 		})
 
 		socket.on("client_disconnected", (name) => {
@@ -139,8 +151,10 @@ $lobbyButton.focus()
 $messageInput.keyup(() => {
 	if($messageInput.val() === ''){
 		$messageButton.prop('disabled', true)
+		localClient.sendImTyping(false)
 	} else {
 		$messageButton.prop('disabled', false)
+		localClient.sendImTyping(true)
 	}
 })
 
@@ -164,8 +178,8 @@ $messageInput.keydown((key)=> {
 })
 
 $messageInput.focusin(() => {
-	localClient.sendImTyping(true)
+	// localClient.sendImTyping(true)
 })
 $messageInput.focusout(() => {
-	localClient.sendImTyping(false)
+	// localClient.sendImTyping(false)
 })
