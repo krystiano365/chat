@@ -21,6 +21,7 @@ class Message{
 }
 
 const activeClients = new Set()
+const areTyping = new Set();
 let messages = []
 
 io.on("connection", (client)=>{
@@ -58,12 +59,22 @@ io.on("connection", (client)=>{
 
 	client.on("disconnect", () => {
 		activeClients.delete(client.uid)
+		areTyping.delete(client.uid)
 		if (activeClients.size <= 0) {
 			messages = []
 			activeClients.clear()
 		}
 		io.emit("client_disconnected", client.uid)
 		console.log("client disconnected")
+	})
+
+	client.on("is_typing", (bool) => {
+		if(bool){
+			areTyping.add(client.uid)
+		} else {
+			areTyping.delete(client.uid)
+		}
+		io.emit("is_typing", [...areTyping])
 	})
 })
 

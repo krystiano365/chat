@@ -24,9 +24,16 @@ class LocalClient {
 	sendMessage(message){
 		socket.emit("message", message)
 	}
+	getMyName() {
+		socket.emit("get_my_name")
+	}
+	sendImTyping(bool){
+		socket.emit("is_typing", bool)
+	}
 	_setListeners() {
 		socket.on("get_my_name", (name) => {
 			console.log(name)
+			var el = $("#" + name)[0].style.backgroundColor = "green"
 			this.myName = name;
 		})
 
@@ -47,13 +54,31 @@ class LocalClient {
 			this._addMessageNode(messageObj)
 		})
 
+		socket.on("is_typing", (peopleWhoAreTyping) =>{ // todo wrap it in an array (?)
+			var x = peopleWhoAreTyping.findIndex(this.myName)
+			if(x > -1){
+				peopleWhoAreTyping.splice(x, 1)
+			}
+			var len = peopleWhoAreTyping.length
+			var str = peopleWhoAreTyping.join(", ")
+			if(len > 0){
+				if (len > 1){
+					str += " are typing..."
+				} else {
+					str += " is typing..."
+				}
+				$("#is-typing").text(str)
+			} else {
+				$("#is-typing").text('')
+			}
+		})
+
 		socket.on("client_disconnected", (name) => {
 			this._removeParticipantNode(name)
+			// this.areTyping.delete(name)
 		})
 	}
-	getMyName() {
-		socket.emit("get_my_name")
-	}
+
 	_addMessageNode(messageObj) {
 		const owner = messageObj.owner, message = messageObj.message;
 		let time = new Date(messageObj.time)
@@ -136,4 +161,11 @@ $messageInput.keydown((key)=> {
 		localClient.sendMessage($messageInput.val())
 		$messageInput.val('')
 	}
+})
+
+$messageInput.focusin(() => {
+	localClient.sendImTyping(true)
+})
+$messageInput.focusout(() => {
+	localClient.sendImTyping(false)
 })

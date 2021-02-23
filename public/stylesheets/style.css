@@ -68,6 +68,11 @@ body {
 #message-form button {
   width: 10%;
 }
+#message-form span {
+  width: 100%;
+  height: 30px;
+  color: red;
+}
 #messages-box {
   width: 100%;
   height: 100%;
@@ -89,6 +94,7 @@ body {
   border-radius: 20px;
   background-color: bisque;
   padding: 10px 20px;
+  overflow: auto;
 }
 #messages-box .message .info-box {
   margin: 0 10px;
@@ -98,6 +104,7 @@ body {
 }
 #messages-box .message .info-box .owner-label {
   margin-right: 10px;
+  font-weight: bold;
 }
 #messages-box .mine {
   float: right;
@@ -111,7 +118,7 @@ body {
 .participant {
   width: 100%;
   font-size: 20px;
-  padding: 5px 0 ;
+  padding: 5px 0;
   color: #0ca70c;
   text-align: center;
 }
